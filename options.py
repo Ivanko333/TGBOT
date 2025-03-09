@@ -2,19 +2,14 @@ import subprocess
 
 
 def ping(host):
-    res = subprocess.run(['ping', '-n', '1', host], stdout=subprocess.PIPE)
+    res = subprocess.run(['ping', '-c', '1', host], stdout=subprocess.PIPE)
     return 'Сервер работает)' if res.returncode == 0 else "Сервер выключен :("
 
 
-def check_bot(a):
-    if a is None:
-        return "Bot"
-    else:
-        return a
+def ping1(host):
+    res = subprocess.run(['ping', '-c', '1', host], stdout=subprocess.PIPE)
+    return res
 
 
-def send_debug(bot, id_chat, message):
-    bot.send_message(id_chat,
-                     f'Chat: {message.chat.id}({check_bot(message.chat.title)})\n'
-                     f'Text: {message.text}\n'
-                     f'From: {message.from_user.username}')
+def send_debug(bot, chat_id, topic_id, message_text):
+    bot.send_message(chat_id=chat_id, message_thread_id=topic_id, text=message_text)
